@@ -24,7 +24,8 @@ class TestBaseModel(unittest.TestCase):
         Test the __str__ method
         """
         my_model = BaseModel()
-        expected_str = "[BaseModel] ({}) {}".format(my_model.id, my_model.__dict__)
+        expected_str = "[BaseModel] ({}) {}".format(my_model.id,
+                                                    my_model.__dict__)
         self.assertEqual(str(my_model), expected_str)
 
     def test_save(self):
@@ -60,6 +61,7 @@ class TestBaseModel(unittest.TestCase):
         model_1 = BaseModel()
         model_2 = BaseModel()
         self.assertNotEqual(model_1.id, model_2.id)
+
 
 if __name__ == "__main__":
     unittest.main()
