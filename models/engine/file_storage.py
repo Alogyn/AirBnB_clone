@@ -32,7 +32,7 @@ class FileStorage:
         """
         obj_dict = {obj: FileStorage.__objects[obj].to_dict() for obj in
                     FileStorage.__objects.keys()}
-        with open(FileStorage.__file_path, 'w') as f:
+        with open(FileStorage.__file_path, 'w', encoding="utf-8") as file:
             json.dump(obj_dict, f)
 
     def reload(self):
@@ -41,12 +41,14 @@ class FileStorage:
         otherwise, does nothing. If the file doesn’t exist,
         no exception is raised
         """
-        try:
-            with open(FileStorage.__file_path, 'r') as f:
-                objs = json.load(f)
-                for obj in objs.values():
-                    cls_name = obj["__class__"]
-                    del obj["__class__"]
-                    self.new(eval(cls_name)(**obj))
-        except FileNotFoundError:
-            pass
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
+                try:
+                    obj_dict = json.load(file)
+                    for key, value in obj_dict.items():
+                        class_name, obj_id = key.split('.')
+                        cls = eval(class_name)
+                        instance = cls(**value)
+                        FileStorage.__objects[key] = instance
+                except Exception:
+                    pass
