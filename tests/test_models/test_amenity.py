@@ -1,21 +1,24 @@
 #!/usr/bin/python3
-"""Defines unittests for models/amenity.py.
-
-Unittest classes:
-    TestAmenity_instantiation
-    TestAmenity_save
-    TestAmenity_to_dict
 """
+Module containing unittests for the Amenity class in models/amenity.py.
+
+Tests are organized into classes corresponding to individual testing scenarios:
+- TestAmenity_instantiation: Tests for verifying the instantiation of
+    Amenity objects.
+- TestAmenity_save: Tests for the save method of the Amenity class.
+- TestAmenity_to_dict: Tests for the to_dict method of the Amenity class.
+"""
+
 import os
-import models
 import unittest
-from datetime import datetime
 from time import sleep
+from datetime import datetime
 from models.amenity import Amenity
+import models
 
 
 class TestAmenity_instantiation(unittest.TestCase):
-    """Unittests for testing instantiation of the Amenity class."""
+    """Tests for instantiation behavior of the Amenity class."""
 
     def test_no_args_instantiates(self):
         self.assertEqual(Amenity, type(Amenity()))
@@ -33,10 +36,9 @@ class TestAmenity_instantiation(unittest.TestCase):
         self.assertEqual(datetime, type(Amenity().updated_at))
 
     def test_name_is_public_class_attribute(self):
-        am = Amenity()
         self.assertEqual(str, type(Amenity.name))
         self.assertIn("name", dir(Amenity()))
-        self.assertNotIn("name", am.__dict__)
+        self.assertNotIn("name", vars(Amenity()))
 
     def test_two_amenities_unique_ids(self):
         am1 = Amenity()
@@ -69,10 +71,9 @@ class TestAmenity_instantiation(unittest.TestCase):
 
     def test_args_unused(self):
         am = Amenity(None)
-        self.assertNotIn(None, am.__dict__.values())
+        self.assertNotIn(None, vars(am).values())
 
     def test_instantiation_with_kwargs(self):
-        """instantiation with kwargs test method"""
         dt = datetime.today()
         dt_iso = dt.isoformat()
         am = Amenity(id="345", created_at=dt_iso, updated_at=dt_iso)
@@ -86,16 +87,17 @@ class TestAmenity_instantiation(unittest.TestCase):
 
 
 class TestAmenity_save(unittest.TestCase):
-    """Unittests for testing save method of the Amenity class."""
+    """Tests for the save method of the Amenity class."""
 
     @classmethod
-    def setUp(self):
+    def setUpClass(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -137,7 +139,7 @@ class TestAmenity_save(unittest.TestCase):
 
 
 class TestAmenity_to_dict(unittest.TestCase):
-    """Unittests for testing to_dict method of the Amenity class."""
+    """Tests for the to_dict method of the Amenity class."""
 
     def test_to_dict_type(self):
         self.assertTrue(dict, type(Amenity().to_dict()))
