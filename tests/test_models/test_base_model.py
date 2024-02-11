@@ -1,20 +1,11 @@
 #!/usr/bin/python3
-"""
-This module defines unittests for the BaseModel class within
-models/base_model.py.
-It tests various functionalities of the BaseModel class,
-including instantiation,
-the save method, and the to_dict method, ensuring they behave as expected.
+"""Defines unittests for models/base_model.py.
 
-Tests are organized into the following classes:
-- TestBaseModel_instantiation: Tests for the correct instantiation
-    of BaseModel objects.
-- TestBaseModel_save: Tests for the save method,
-    ensuring it updates the object correctly.
-- TestBaseModel_to_dict: Tests for the to_dict method,
-    verifying it returns an accurate dictionary representation.
+Unittest classes:
+    TestBaseModel_instantiation
+    TestBaseModel_save
+    TestBaseModel_to_dict
 """
-
 import os
 import models
 import unittest
@@ -96,17 +87,17 @@ class TestBaseModel_instantiation(unittest.TestCase):
 
 
 class TestBaseModel_save(unittest.TestCase):
-    """Unittests for testing the save method of the BaseModel class."""
+    """Unittests for testing save method of the BaseModel class."""
 
     @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
     @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         try:
             os.remove("file.json")
         except IOError:
@@ -148,7 +139,7 @@ class TestBaseModel_save(unittest.TestCase):
 
 
 class TestBaseModel_to_dict(unittest.TestCase):
-    """Unittests for testing the to_dict method of the BaseModel class."""
+    """Unittests for testing to_dict method of the BaseModel class."""
 
     def test_to_dict_type(self):
         bm = BaseModel()

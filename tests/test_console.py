@@ -1,18 +1,16 @@
 #!/usr/bin/python3
-"""
-Defines unittests for console.py, covering various command interpreter aspects.
+"""Defines unittests for console.py.
 
-Test classes:
-- TestHBNBCommand_prompting: Tests for command prompt behavior.
-- TestHBNBCommand_help: Tests for the help command.
-- TestHBNBCommand_exit: Tests for exiting the command interpreter.
-- TestHBNBCommand_create: Tests for the create command.
-- TestHBNBCommand_show: Tests for the show command.
-- TestHBNBCommand_all: Tests for the all command.
-- TestHBNBCommand_destroy: Tests for the destroy command.
-- TestHBNBCommand_update: Tests for the update command.
+Unittest classes:
+    TestHBNBCommand_prompting
+    TestHBNBCommand_help
+    TestHBNBCommand_exit
+    TestHBNBCommand_create
+    TestHBNBCommand_show
+    TestHBNBCommand_all
+    TestHBNBCommand_destroy
+    TestHBNBCommand_update
 """
-
 import os
 import sys
 import unittest
