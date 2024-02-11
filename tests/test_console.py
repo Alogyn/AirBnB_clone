@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 """
 Defines unittests for console.py, covering various command interpreter aspects.
 
